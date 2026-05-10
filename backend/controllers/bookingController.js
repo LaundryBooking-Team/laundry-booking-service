@@ -1,5 +1,7 @@
 const Booking = require('../models/Booking');
 const { PRICES, COLLECTION_FEE, RETURN_FEE } = require('../models/Booking');
+const Notification = require('../models/Notification');
+const NotificationFactory = require('../utils/NotificationFactory');
 
 // CREATE - 
 const createBooking = async (req, res) => {
@@ -115,6 +117,15 @@ const updateBooking = async (req, res) => {
 
         booking.status = req.body.status || booking.status;
         const updatedBooking = await booking.save();
+
+        // Create notification for the user using Factory pattern
+        const notifData = NotificationFactory.create(
+          'booking_update',
+          booking.userId,
+          booking._id,
+          updatedBooking.status
+        );
+        await Notification.create(notifData);
 
         res.status(200).json(updatedBooking);
     } catch (error) {
