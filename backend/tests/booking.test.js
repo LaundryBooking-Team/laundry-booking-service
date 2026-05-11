@@ -11,6 +11,7 @@ const {
 
 // Import Booking model to stub its methods
 const Booking = require('../models/Booking');
+const Notification = require('../models/Notification');
 
 // ─────────────────────────────────────────────
 // Helper: fake req/res objects
@@ -157,6 +158,7 @@ describe('Booking Controller - Unit Tests', () => {
             };
 
             sinon.stub(Booking, 'findById').resolves(fakeBooking);
+            sinon.stub(Notification, 'create').resolves({});
 
             await updateBooking(req, res);
 
