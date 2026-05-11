@@ -9,6 +9,7 @@ import AdminBooking from './pages/AdminBooking';
 import Payment from './pages/Payment';
 import PaymentSuccess from './pages/PaymentSuccess';
 import PaymentMethodSettings from './pages/PaymentMethodSettings';
+import Notifications from './pages/Notifications';
 import bgImage from './images/background.png';
 
 function App() {
@@ -21,7 +22,6 @@ function App() {
         backgroundPosition: 'center',
       }}
     >
-      {/* overlay white 80% */}
       <div style={{ minHeight: '100vh', backgroundColor: 'rgba(255,255,255,0.8)' }}>
         <Router>
           <Navbar />
@@ -35,6 +35,7 @@ function App() {
             <Route path="/payment/:bookingId" element={<Payment />} />
             <Route path="/payment/success/:paymentId" element={<PaymentSuccess />} />
             <Route path="/payment-methods" element={<PaymentMethodSettings />} />
+            <Route path="/notifications" element={<Notifications />} />
           </Routes>
         </Router>
       </div>
