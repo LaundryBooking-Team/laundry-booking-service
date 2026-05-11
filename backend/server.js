@@ -16,6 +16,7 @@ app.use('/api/auth', require('./routes/authRoutes'));
 app.use('/api/bookings', require('./routes/bookingRoutes'));
 app.use('/api/payments', require('./routes/paymentRoutes'));
 app.use('/api/payment-methods', require('./routes/paymentMethodRoutes'));
+app.use('/api/notifications', require('./routes/notificationRoutes'));
 
 
 // Export the app object for testing
