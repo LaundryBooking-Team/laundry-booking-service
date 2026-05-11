@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import axios from 'axios';
@@ -8,8 +8,7 @@ const Navbar = () => {
   const navigate = useNavigate();
   const [unreadCount, setUnreadCount] = useState(0);
 
-  // Fetch unread notification count
-  const fetchUnreadCount = async () => {
+  const fetchUnreadCount = useCallback(async () => {
     try {
       const res = await axios.get('http://localhost:5001/api/notifications', {
         headers: { Authorization: `Bearer ${user.token}` }
@@ -19,11 +18,11 @@ const Navbar = () => {
     } catch (error) {
       console.error('Error fetching notifications:', error);
     }
-  };
+  }, [user]);
 
   useEffect(() => {
     if (user) fetchUnreadCount();
-  }, [user]);
+  }, [user, fetchUnreadCount]);
 
   const handleLogout = () => {
     logout();
@@ -38,13 +37,18 @@ const Navbar = () => {
           <>
             <Link to="/bookings" className="mr-4">HomeService</Link>
             <Link to="/my-bookings" className="mr-4">MyBooking</Link>
-            <Link to="/notifications" className="mr-4">Notifications</Link>
+            <Link to="/notifications" className="mr-4 relative">
+              Notifications
+              {unreadCount > 0 && (
+                <span className="absolute -top-2 -right-3 bg-red-500 text-white text-xs rounded-full px-1.5 py-0.5">
+                  {unreadCount}
+                </span>
+              )}
+            </Link>
             <Link to="/profile" className="mr-4">MyProfile</Link>
-
             {user.role === 'admin' && (
               <Link to="/admin/bookings" className="mr-4">Admin</Link>
             )}
-
             <button
               onClick={handleLogout}
               className="bg-red-500 px-4 py-2 rounded hover:bg-red-700"

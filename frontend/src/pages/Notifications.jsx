@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 import { useAuth } from '../context/AuthContext';
 
@@ -7,8 +7,7 @@ const Notifications = () => {
   const [notifications, setNotifications] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  // Fetch all notifications
-  const fetchNotifications = async () => {
+  const fetchNotifications = useCallback(async () => {
     try {
       const res = await axios.get('http://localhost:5001/api/notifications', {
         headers: { Authorization: `Bearer ${user.token}` }
@@ -19,13 +18,12 @@ const Notifications = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [user]);
 
   useEffect(() => {
     if (user) fetchNotifications();
-  }, [user]);
+  }, [user, fetchNotifications]);
 
-  // Mark as read
   const handleMarkAsRead = async (id) => {
     try {
       await axios.patch(
@@ -41,7 +39,6 @@ const Notifications = () => {
     }
   };
 
-  // Delete notification
   const handleDelete = async (id) => {
     try {
       await axios.delete(
@@ -63,7 +60,6 @@ const Notifications = () => {
   return (
     <div className="max-w-2xl mx-auto p-6">
       <h1 className="text-2xl font-bold mb-6">Notifications</h1>
-
       {notifications.length === 0 ? (
         <div className="text-center text-gray-500 py-10">
           No notifications yet
@@ -77,7 +73,6 @@ const Notifications = () => {
             >
               <div className="flex justify-between items-start">
                 <div className="flex-1">
-                  {/* Unread blue dot indicator */}
                   <div className="flex items-center gap-2 mb-1">
                     {!notification.isRead && (
                       <span className="w-2 h-2 bg-blue-500 rounded-full inline-block"></span>
@@ -90,8 +85,6 @@ const Notifications = () => {
                     {new Date(notification.createdAt).toLocaleString()}
                   </p>
                 </div>
-
-                {/* Action buttons */}
                 <div className="flex gap-2 ml-4">
                   {!notification.isRead && (
                     <button
