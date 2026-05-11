@@ -6,13 +6,14 @@ import Profile from './pages/Profile';
 import Bookings from './pages/bookings';
 import MyBooking from './pages/MyBooking';
 import AdminBooking from './pages/AdminBooking';
+import Payment from './pages/Payment';
+import PaymentSuccess from './pages/PaymentSuccess';
+import PaymentMethodSettings from './pages/PaymentMethodSettings';
 import bgImage from './images/background.png';
 
 function App() {
   return (
-
-    
-   <div
+    <div
       style={{
         minHeight: '100vh',
         backgroundImage: `url(${bgImage})`,
@@ -22,26 +23,22 @@ function App() {
     >
       {/* overlay white 80% */}
       <div style={{ minHeight: '100vh', backgroundColor: 'rgba(255,255,255,0.8)' }}>
-    
-
-
-
-    <Router>
-      <Navbar />
-      <Routes>
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/profile" element={<Profile />} />
-        <Route path="/bookings" element={<Bookings />} />
-        <Route path="/my-bookings" element={<MyBooking />} />
-        <Route path="/admin/bookings" element={<AdminBooking />} />
-      </Routes>
-    </Router>
-</div>
-</div>
-
-
-
+        <Router>
+          <Navbar />
+          <Routes>
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
+            <Route path="/profile" element={<Profile />} />
+            <Route path="/bookings" element={<Bookings />} />
+            <Route path="/my-bookings" element={<MyBooking />} />
+            <Route path="/admin/bookings" element={<AdminBooking />} />
+            <Route path="/payment/:bookingId" element={<Payment />} />
+            <Route path="/payment/success/:paymentId" element={<PaymentSuccess />} />
+            <Route path="/payment-methods" element={<PaymentMethodSettings />} />
+          </Routes>
+        </Router>
+      </div>
+    </div>
   );
 }
 

@@ -18,12 +18,13 @@ const Navbar = () => {
           <>
             <Link to="/bookings" className="mr-4">HomeService</Link>
             <Link to="/my-bookings" className="mr-4">MyBooking</Link>
+            <Link to="/payment-methods" className="mr-4">Payment Methods</Link>
             <Link to="/profile" className="mr-4">MyProfile</Link>
 
             {user.role === 'admin' && (
-            <Link to="/admin/bookings" className="mr-4">Admin</Link>
+              <Link to="/admin/bookings" className="mr-4">Admin</Link>
             )}
-          
+
             <button
               onClick={handleLogout}
               className="bg-red-500 px-4 py-2 rounded hover:bg-red-700"
