@@ -8,6 +8,8 @@ import MyBooking from './pages/MyBooking';
 import AdminBooking from './pages/AdminBooking';
 import bgImage from './images/background.png';
 
+import Notifications from './pages/Notifications';
+
 function App() {
   return (
 
@@ -35,6 +37,7 @@ function App() {
         <Route path="/bookings" element={<Bookings />} />
         <Route path="/my-bookings" element={<MyBooking />} />
         <Route path="/admin/bookings" element={<AdminBooking />} />
+        <Route path="/notifications" element={<Notifications />} />
       </Routes>
     </Router>
 </div>
