@@ -22,7 +22,6 @@ function App() {
         backgroundPosition: 'center',
       }}
     >
-      {/* overlay white 80% */}
       <div style={{ minHeight: '100vh', backgroundColor: 'rgba(255,255,255,0.8)' }}>
         <Router>
           <Navbar />
