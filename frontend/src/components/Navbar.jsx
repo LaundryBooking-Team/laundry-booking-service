@@ -3,6 +3,8 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import axios from 'axios';
 
+import { FaBell, FaUserCircle } from 'react-icons/fa';
+
 const Navbar = () => {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
@@ -35,28 +37,33 @@ const Navbar = () => {
 
   return (
     <nav className="bg-gray-800 text-white p-4 flex justify-between items-center">
-      <Link to="/" className="text-2xl font-bold">
-        Laundry Booking Service
+      <Link to={user ? "/bookings" : "/login"} className="text-2xl font-bold">
+        🧺 Laundry Service
       </Link>
 
       <div className="flex items-center">
         {user ? (
           <>
             <Link to="/bookings" className="mr-4">
-              HomeService
+              Home
             </Link>
 
             <Link to="/my-bookings" className="mr-4">
-              MyBooking
+              My Booking
             </Link>
 
             <Link to="/payment-methods" className="mr-4">
-              Payment Methods
+              Payment
             </Link>
 
-            <Link to="/notifications" className="mr-4 relative">
-              Notifications
+            {user.role === 'admin' && (
+              <Link to="/admin/bookings" className="mr-4">
+                Admin
+              </Link>
+            )}
 
+            <Link to="/notifications" className="mr-4 relative">
+              <FaBell size={20} />
               {unreadCount > 0 && (
                 <span className="absolute -top-2 -right-3 bg-red-500 text-white text-xs rounded-full px-1.5 py-0.5">
                   {unreadCount}
@@ -65,14 +72,8 @@ const Navbar = () => {
             </Link>
 
             <Link to="/profile" className="mr-4">
-              MyProfile
+              <FaUserCircle size={20} />
             </Link>
-
-            {user.role === 'admin' && (
-              <Link to="/admin/bookings" className="mr-4">
-                Admin
-              </Link>
-            )}
 
             <button
               onClick={handleLogout}
@@ -89,7 +90,7 @@ const Navbar = () => {
 
             <Link
               to="/register"
-              className="bg-green-500 px-4 py-2 rounded hover:bg-green-700"
+              className="bg-blue-600 px-4 py-2 rounded hover:bg-blue-700"
             >
               Register
             </Link>

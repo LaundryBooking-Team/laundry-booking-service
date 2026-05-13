@@ -109,18 +109,21 @@ const PaymentMethodSettings = () => {
   return (
     <div className="container mx-auto p-6 max-w-3xl">
       <div className="flex justify-between items-center mb-6">
-        <h1 className="text-3xl font-bold">Payment Methods</h1>
+        <h1 className="text-3xl font-bold mb-6">Payment Methods</h1>
         <button
           onClick={() => setShowAdd(!showAdd)}
-          className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+          className={showAdd
+            ? 'border border-red-500 text-red-500 px-4 py-2 rounded hover:bg-red-50'
+            : 'bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700'
+          }
         >
-          {showAdd ? 'Cancel' : '+ Add New Card'}
+          {showAdd ? 'Cancel' : 'Add New Card'}
         </button>
       </div>
 
       {/* Add card form */}
       {showAdd && (
-        <form onSubmit={handleAdd} className="bg-white p-6 rounded-lg shadow-md mb-6">
+        <form onSubmit={handleAdd} className="p-4 rounded-lg border bg-white border-gray-200 mb-6">
           <h2 className="text-xl font-semibold mb-4">Add a new card</h2>
 
           <div className="mb-3">
@@ -129,7 +132,7 @@ const PaymentMethodSettings = () => {
               type="text"
               value={cardholderName}
               onChange={(e) => setCardholderName(e.target.value)}
-              placeholder="John Doe"
+              placeholder="Full Name"
               required
               className="w-full border rounded px-3 py-2"
             />
@@ -141,7 +144,7 @@ const PaymentMethodSettings = () => {
               type="text"
               value={cardNumber}
               onChange={(e) => setCardNumber(formatCardNumber(e.target.value))}
-              placeholder="4242 4242 4242 4242"
+              placeholder="•••• •••• •••• ••••"
               required
               className="w-full border rounded px-3 py-2 font-mono"
             />
@@ -165,7 +168,7 @@ const PaymentMethodSettings = () => {
                 type="password"
                 value={cvv}
                 onChange={(e) => setCvv(e.target.value.replace(/\D/g, '').slice(0, 4))}
-                placeholder="123"
+                placeholder="•••"
                 required
                 className="w-full border rounded px-3 py-2 font-mono"
               />
@@ -201,7 +204,7 @@ const PaymentMethodSettings = () => {
           <button
             type="submit"
             disabled={saving}
-            className={`w-full py-3 rounded font-bold text-white ${
+            className={`w-full py-3 rounded text-white ${
               saving ? 'bg-gray-400' : 'bg-blue-600 hover:bg-blue-700'
             }`}
           >
@@ -214,28 +217,22 @@ const PaymentMethodSettings = () => {
       {loading ? (
         <p>Loading...</p>
       ) : methods.length === 0 ? (
-        <div className="bg-white p-8 rounded-lg shadow-md text-center text-gray-500">
-          <p className="mb-2">No saved payment methods yet.</p>
-          <p className="text-sm">Add a card or save one next time you pay.</p>
+        <div className="text-center text-gray-500 py-10">
+          No saved payment methods yet
         </div>
       ) : (
         <div className="space-y-3">
           {methods.map((m) => (
             <div
               key={m._id}
-              className="bg-white p-4 rounded-lg shadow-md flex items-center justify-between"
+              className="p-4 rounded-lg border bg-white border-gray-200 mb-6 flex items-center justify-between"
             >
               <div className="flex items-center gap-4">
-                <div
-                  className={`${brandColor[m.cardBrand] || 'bg-gray-500'} text-white font-bold px-3 py-2 rounded text-sm w-20 text-center`}
-                >
-                  {m.cardBrand}
-                </div>
                 <div>
-                  <p className="font-mono text-lg">&middot;&middot;&middot;&middot; {m.last4}</p>
+                  <p className="font-mono text-lg">•••• •••• •••• {m.last4}</p>
                   <p className="text-sm text-gray-500">
                     Exp {String(m.expMonth).padStart(2, '0')}/{String(m.expYear).slice(-2)}
-                    {m.cardholderName && ` &middot; ${m.cardholderName}`}
+                    {m.cardholderName && ` • ${m.cardholderName}`}
                   </p>
                   {m.nickname && <p className="text-xs text-gray-400">{m.nickname}</p>}
                 </div>
@@ -268,7 +265,7 @@ const PaymentMethodSettings = () => {
       )}
 
       <p className="text-xs text-gray-400 text-center mt-6">
-        Demo mode &middot; Only last 4 digits are stored. CVV and full card number are never saved.
+        Only last 4 digits are stored. CVV and full card number are never saved.
       </p>
     </div>
   );

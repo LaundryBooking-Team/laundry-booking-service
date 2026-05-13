@@ -1,5 +1,4 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Navbar from './components/Navbar';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';import Navbar from './components/Navbar';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import Profile from './pages/Profile';
@@ -22,10 +21,11 @@ function App() {
         backgroundPosition: 'center',
       }}
     >
-      <div style={{ minHeight: '100vh', backgroundColor: 'rgba(255,255,255,0.8)' }}>
+      <div style={{ minHeight: '100vh', backgroundColor: '#FBF9F7' }}>
         <Router>
           <Navbar />
           <Routes>
+            <Route path="/" element={<Navigate to="/login" replace />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
             <Route path="/profile" element={<Profile />} />
