@@ -34,11 +34,11 @@ const Login = () => {
 
   return (
     <div className="max-w-md mx-auto mt-20">
-      <form onSubmit={handleSubmit} className="bg-white p-6 shadow-md rounded">
-        <h1 className="text-2xl font-bold mb-4 text-center">Login</h1>
+      <form onSubmit={handleSubmit} className="p-4 rounded-lg border bg-white border-gray-200">
+        <h1 className="text-3xl font-bold mb-6 text-center">Login</h1>
         <input
           type="text"
-          placeholder="username"
+          placeholder="Username"
           value={formData.username}
           onChange={(e) => setFormData({ ...formData, username: e.target.value })}
           className="w-full mb-4 p-2 border rounded"

@@ -59,7 +59,7 @@ const MyBooking = () => {
         bookings.map((booking) => {
           const payment = getPaymentForBooking(booking._id);
           return (
-            <div key={booking._id} className="bg-white border p-4 rounded mb-4 shadow">
+            <div key={booking._id} className="p-4 rounded-lg border bg-white border-gray-200 mb-4">
               <p><strong>Service:</strong> {booking.serviceType}</p>
               <p><strong>Quantity:</strong> {booking.quantity}</p>
               <p><strong>Date:</strong> {new Date(booking.bookingDate).toLocaleDateString()}</p>

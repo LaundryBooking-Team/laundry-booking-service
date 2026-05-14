@@ -63,14 +63,13 @@ const AdminBooking = () => {
 
   return (
     <div className="container mx-auto p-6">
-      <div className="bg-white p-6 shadow-md rounded">
-        <h2 className="text-2xl font-semibold mb-4">Admin Booking Management</h2>
+        <h2 className="text-3xl font-bold mb-6">Admin Management</h2>
 
         {bookings.length === 0 ? (
           <p>No bookings found.</p>
         ) : (
           bookings.map((booking) => (
-            <div key={booking._id} className="border p-4 rounded mb-4">
+            <div key={booking._id} className="p-4 rounded-lg border bg-white border-gray-200 mb-4">
               <p><strong>User ID:</strong> {booking.userId}</p>
               <p><strong>Service Type:</strong> {booking.serviceType}</p>
               <p><strong>Quantity:</strong> {booking.quantity}</p>
@@ -80,11 +79,11 @@ const AdminBooking = () => {
               <p><strong>Status:</strong> {booking.status}</p>
               <p><strong>Total Price:</strong> ${booking.totalPrice}</p>
 
-              <div className="mt-4 flex gap-3">
+              <div className="mt-4 flex gap-3 items-center">
                 <select
                   value={booking.status}
                   onChange={(e) => handleStatusUpdate(booking._id, e.target.value)}
-                  className="p-2 border rounded"
+                  className="flex-1 p-2 border border-gray-300 rounded bg-white text-black"
                 >
                   <option value="booked">booked</option>
                   <option value="waiting_pickup">waiting_pickup</option>
@@ -98,7 +97,7 @@ const AdminBooking = () => {
 
                 <button
                   onClick={() => handleDeleteBooking(booking._id)}
-                  className="bg-red-600 text-white px-4 py-2 rounded"
+                  className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-700"
                 >
                   Delete
                 </button>
@@ -107,7 +106,6 @@ const AdminBooking = () => {
           ))
         )}
       </div>
-    </div>
   );
 };
 
